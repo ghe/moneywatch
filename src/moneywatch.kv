@@ -1,0 +1,52 @@
+#:kivy 1.7.0
+
+<MainWidget>
+    text_input: _txt_rate
+
+    BoxLayout:
+        size: root.size
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1.0, 0.1)
+            pos: 0, self.height
+
+            Label:
+                font_size: 36
+                text: 'rate $'
+
+            TextInput:
+                id: _txt_rate
+                font_size: 36
+                multiline: False
+                text: '100.00'
+
+            Label:
+                font_size: 36
+                text: 'per hour'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1.0, 0.1)
+            pos: 0, self.height
+
+            Button:
+                on_release: root.on_btn_stop() if root.running else root.on_btn_start(_txt_rate.text)
+                text: 'stop' if root.running else 'start'
+
+            Button:
+                on_release: root.on_btn_reset()
+                text: 'reset'
+
+        Label:
+            font_size: 128
+            text: "$ %.2f" % root.total
+
+        Button:
+            text: 'exit'
+            size_hint: (1.0, 0.1)
+            on_release: root.on_btn_exit()
+
